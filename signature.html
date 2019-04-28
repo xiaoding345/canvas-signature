@@ -110,21 +110,21 @@
     <script type="text/javascript" src="./js/flexble.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript">
-
+    //设置确定按钮不可用
     $('.but2').attr('disabled', true);
     var winWidth = document.documentElement.clientWidth;
     var winHight = document.documentElement.clientHeight;
 
-    if (winWidth > winHight) {//横屏
-        canvas.width = winWidth - ((winHight * 100 / 750) * 0.24 * 2);
-        canvas.height = winHight - $("header").innerHeight() - $("#footers").height() -  ((winHight * 100 / 750) * 0.24 * 2) ;
-    } else {
-        canvas.width = winWidth - ((winWidth * 100 / 750) * 0.24 * 2);
-        canvas.height = winHight - $("header").innerHeight() - $("#footers").innerHeight() -  ((winWidth * 100 / 750) * 0.24 * 2) ;
+    //按比例计算内边距的值,当前UI设计图宽为750,可根据项目设置
+    var paddingW = (winWidth * 100 / 750) * 0.24 * 2;
+    if (winWidth > winHight) {//横屏 比例用body的高来计算
+        paddingW = (winHight * 100 / 750) * 0.24 * 2;
     }
+    canvas.width = winWidth - paddingW;
+    canvas.height = winHight - $("header").innerHeight() - $("#footers").innerHeight() - paddingW;
 
     var content = canvas.getContext("2d");
-
+    //设置画笔的样式
     content.strokeStyle = "#000";
     content.lineWidth = 1;
     content.lineCap = 'round';
@@ -150,6 +150,7 @@
     });
     canvas.addEventListener("touchend", function(event) {
         content.closePath();
+        //当画布有内容时,确定按钮才可用
         $('.but2').attr('disabled', false);
     });
     document.querySelector(".but1").onclick = function() {
