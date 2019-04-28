@@ -107,21 +107,25 @@
         <img src="" alt="" class="canvasImg">
     </div>
 </body>
-    <script type="text/javascript" src="./js/flexble.js"></script>
-    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript" src="./js/flexble.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+    var canvas = document.getElementById("canvas");
     //设置确定按钮不可用
     $('.but2').attr('disabled', true);
     var winWidth = document.documentElement.clientWidth;
     var winHight = document.documentElement.clientHeight;
+    var headH = $("header").innerHeight();
+    var footH = $("#footers").innerHeight();
 
     //按比例计算内边距的值,当前UI设计图宽为750,可根据项目设置
     var paddingW = (winWidth * 100 / 750) * 0.24 * 2;
     if (winWidth > winHight) {//横屏 比例用body的高来计算
         paddingW = (winHight * 100 / 750) * 0.24 * 2;
     }
+    
     canvas.width = winWidth - paddingW;
-    canvas.height = winHight - $("header").innerHeight() - $("#footers").innerHeight() - paddingW;
+    canvas.height = winHight - headH - footH - paddingW;
 
     var content = canvas.getContext("2d");
     //设置画笔的样式
